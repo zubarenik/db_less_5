@@ -1,14 +1,43 @@
 version: "3.9"
 services:
-  postgres:
+  postgres1:
     image: postgres:latest
     environment:
-      POSTGRES_DB: "teacher"
-      POSTGRES_USER: "teacher"
-      POSTGRES_PASSWORD: "teacher"
-      PGDATA: "/var/lib/postgresql/data/pgdata"
+      POSTGRES_DB: "ZUBAREV_205"
+      POSTGRES_USER: "ZUBAREV_205"
+      POSTGRES_PASSWORD: "ZUBAREV_205"
+      PGDATA: "/var/lib/postgresql/data/pgdata2"
     volumes:
-      - docker/db/scripts:/docker-entrypoint-initdb.d
-      - dz:/var/lib/postgresql/data
+      - ./docker/db/scripts/trains:/docker-entrypoint-initdb.d
+      - ./docker/db/data/trains:/var/lib/postgresql/data
+      - ./docker/db/config/trains.conf:/var/lib/postgresql/data/pgdata/postgresql.conf
     ports:
       - "5432:5432"
+
+  postgres2:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: "ZUBAREV_205"
+      POSTGRES_USER: "ZUBAREV_205"
+      POSTGRES_PASSWORD: "ZUBAREV_205"
+      PGDATA: "/var/lib/postgresql/data/pgdata2"
+    volumes:
+      - ./docker/db/scripts/library:/docker-entrypoint-initdb.d
+      - ./docker/db/data/library:/var/lib/postgresql/data
+      - ./docker/db/config/library.conf:/var/lib/postgresql/data/pgdata/postgresql.conf
+    ports:
+      - "5433:5432"
+
+  postgres3:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: "ZUBAREV_205"
+      POSTGRES_USER: "ZUBAREV_205"
+      POSTGRES_PASSWORD: "ZUBAREV_205"
+      PGDATA: "/var/lib/postgresql/data/pgdata2"
+    volumes:
+      - ./docker/db/scripts/hospital:/docker-entrypoint-initdb.d
+      - ./docker/db/data/hospital:/var/lib/postgresql/data
+      - ./docker/db/config/hospital.conf:/var/lib/postgresql/data/pgdata/postgresql.conf
+    ports:
+      - "5434:5432"
